@@ -7,7 +7,7 @@ class Particle:
         self.particle_angle = random.uniform(0, 360)
         self.particle_speed = random.uniform(0.5, 10)
         self.particle_color = (255, 255, 255)
-        self.particle_radius = 2
+        self.particle_radius = 5
         self.particle_lifetime = random.uniform(10, 100)
         self.rise_duration = 30
         self.fall_duration = self.particle_lifetime - self.rise_duration
@@ -28,11 +28,16 @@ class Particle:
 
         self.particle_x += math.cos(math.radians(self.particle_angle)) * self.particle_speed
 
+        if self.time_elapsed >= self.rise_duration:
+            self.particle_radius = max(1, self.particle_radius - 0.05)
+            alpha = int(max(0, min(((self.particle_lifetime - self.time_elapsed) / self.fall_duration) * 255, 255)))
+            self.particle_color = (self.particle_color[0], self.particle_color[1], self.particle_color[2], alpha)
+
         self.particle_lifetime -= 1
         self.time_elapsed += 1
 
     def draw(self, screen):
-        alpha = int(max(0, min((self.particle_lifetime / 60) * 255, 255)))
+        alpha = int(max(0, min(((self.particle_lifetime - self.time_elapsed) / self.particle_lifetime) * 255, 255)))
         color = (self.particle_color[0], self.particle_color[1], self.particle_color[2], alpha)
         pygame.draw.circle(screen, color, (int(self.particle_x), int(self.particle_y)), self.particle_radius)
 
