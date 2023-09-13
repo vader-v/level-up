@@ -15,8 +15,12 @@ class Particle:
 
     def update(self):
         if self.time_elapsed < self.rise_duration:
+            angle_change = random.uniform(-5, 5)
+            self.particle_angle += angle_change
             self.particle_y -= self.particle_speed
         else:
+            angle_change = random.uniform(-10, 10)
+            self.particle_angle += angle_change
             self.particle_y += self.particle_speed
 
         angle_change = random.uniform(-1, 1)
@@ -43,7 +47,7 @@ class Game:
         self.particles = []
         self.particle_generation_timer = 0
 
-        self.level = 1
+        self.level = 1000
         self.exp = 0
         self.exp_per_level = 100 * self.level
         self.exp_per_click = 1.0 * self.level
