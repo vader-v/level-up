@@ -52,7 +52,7 @@ class Game:
         self.clicked = False
         level_up_button_center_x = self.level_up_button.x + self.level_up_button.width / 2
 
-        self.gold = 300000
+        self.gold = 300
         self.gold_per_click = 1.0 * self.level
         self.gold_per_level = 300 * self.level
         self.gold_mine_button = pygame.Rect(200, 300, 200, 100)
